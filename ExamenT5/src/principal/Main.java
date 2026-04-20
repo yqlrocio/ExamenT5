@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         // a) Declaración y relleno de la tabla
         Mando[] catalogo = {
-            new MandoTV("Alexa Echo", "Amazon", 59.99, "Alexa"),
+            new MandoTV("Telecinco", 59.99),
             new MandoMinicadena("Hue Bulb", "Philips", 19.50, "Blanco Cálido"),
             new MandoAspiradora("Nest Learning", "Google", 249.00, 21.5),
             new MandoAire("Arlo Pro", "Netgear", 180.00, "2K")
