@@ -1,74 +1,84 @@
 package principal;
 
+import aplicacion.*; // Importamos todas las clases e interfaces del paquete 1
 import java.util.Arrays;
 
-import aplicacion.MandoTV;
-import aplicacion.MandoAire;
-import aplicacion.MandoAspiradora;
-import aplicacion.MandoMinicadena;
-import aplicacion.Velocidad;
-import aplicacion.DispositivoApagadoException;
-import aplicacion.Mando;
-import aplicacion.Ajustable;
-
-
+/**
+ * Clase que contiene el método principal del programa.
+ * Se encarga de la gestión del catálogo de mandos, su ordenación y 
+ * la ejecución de pruebas funcionales según el tipo de dispositivo.
+ */
 public class Main {
+
     public static void main(String[] args) {
-        // a) Declaración y relleno de la tabla
-        Mando[] catalogo = {
-            new MandoTV("Telecinco", 59.99),
-            new MandoMinicadena("Hue Bulb", "Philips", 19.50, "Blanco Cálido"),
-            new MandoAspiradora("Nest Learning", "Google", 249.00, 21.5),
-            new MandoAire("Arlo Pro", "Netgear", 180.00, "2K")
+        
+        // 1. Declarar un array de 5 mandos con al menos uno de cada tipo
+        // Los constructores siguen el orden: modelo, precio, encendido (según tu UML)
+        Mando[] catalogo = new Mando[] {
+        		new MandoTV("Sony Bravia X1", 25.50, 15, "Antena 3"),
+        		new MandoMinicadena("LG SoundTower", 15.00, 20),
+        	    new MandoAspiradora("Roomba v9", 45.99, 1),
+        		new MandoAire("Daikin Eco", 60.00, 2, "FRIO"),
+        	    new MandoTV("Samsung Crystal", 30.00, 10, "Netflix")
         };
 
-        // b) Ordenar por precio y mostrar
-        System.out.println("--- CATÁLOGO ORDENADO DE FORMA ALFABÉTICA ---");
+        // 2. Ordenar el catálogo
+        // Arrays.sort utiliza el método compareTo implementado en la clase Mando
         Arrays.sort(catalogo);
-        for (Mando m : catalogo) System.out.println(m);
 
-        // c) Recorrido y acciones específicas
-        System.out.println("\n--- PROCESANDO MANDO ---");
+        // 3. Imprimir el catálogo ordenado
+        System.out.println("=== CATÁLOGO DE MANDOS ORDENADO ALFABÉTICAMENTE ===");
         for (Mando m : catalogo) {
-            try {
-                m.encender();
-                System.out.println("Encendiendo: " + m.getClass().getSimpleName());
+            System.out.println(m.toString());
+        }
+        System.out.println("---------------------------------------------------\n");
 
-                if (m instanceof MandoTV) {
-                    MandoTV mtv = (MandoTV) mtv;
-                    mtv.subir(); mtv.subir();
-                    System.out.println("Canal: " + mtv.getCanal());
-                } 
+        // 4. Recorrer el array y realizar acciones específicas
+        System.out.println("=== INICIANDO PRUEBAS DE DISPOSITIVOS ===");
+        for (Mando m : catalogo) {
+            System.out.println("Probando: " + m.getModelo());
+            
+            // Acción común: Encender
+            m.encender();
+
+            try {
+                // Identificación del tipo de mando 
                 
-//                else if (d instanceof LucesInteligentes) {
-//                    LucesInteligentes l = (LucesInteligentes) d;
-//                    l.subir();
-//                    l.setColor("Azul Neón");
-//                } 
-//                else if (d instanceof Termostatos) {
-//                    Termostatos t = (Termostatos) d;
-//                    t.cambiarModo();
-//                    t.activarAlerta("Temperatura inusual");
-//                } 
-//                else if (d instanceof CamarasSeguridad) {
-//                    CamarasSeguridad c = (CamarasSeguridad) d;
-//                    c.iniciarGrabacion();
-//                    c.activarAlerta("Movimiento detectado");
-//                }
-//                
-//                System.out.println("Resultado: " + d);
-//            } catch (DispositivoApagadoException e) {
-//                System.err.println(e.getMessage());
-//            }
-//        }
-//
-//        // d) Caso de error forzado (Altavoz apagado)
-//        System.out.println("\n--- PRUEBA DE ERROR FORZADO ---");
-//        AltavocesInteligentes testAltavoz = new AltavocesInteligentes("Prueba", "Marca", 10.0, "Siri");
-//        testAltavoz.apagar();
-//        try {
-//            testAltavoz.subir();
-//        } catch (DispositivoApagadoException e) {
-//            System.out.println("Capturado: " + e.getMessage());
-//        }
-//    }
+                if (m instanceof MandoTV) {
+                    MandoTV tv = (MandoTV) m; 
+                    tv.setCanal("Telecinco");
+                    tv.subir(); // Sube de 5 en 5 según enunciado
+                    tv.bajar();
+                    System.out.println("   [TV] Canal cambiado y volumen probado.");
+
+                } else if (m instanceof MandoMinicadena) {
+                    MandoMinicadena mini = (MandoMinicadena) m;
+                    mini.subir(); // Sube de 10 en 10 según enunciado
+                    mini.bajar();
+                    System.out.println("   [Minicadena] Volumen ajustado con éxito.");
+
+                } else if (m instanceof MandoAspiradora) {
+                    MandoAspiradora asp = (MandoAspiradora) m;
+                    asp.aumentar(); // Sube de 1 en 1
+                    asp.disminuir();
+                    System.out.println("   [Aspiradora] Velocidad de succión verificada.");
+
+                } else if (m instanceof MandoAire) {
+                    MandoAire aire = (MandoAire) m;
+                    aire.cambiarModo();
+                    // aire.setTemperatura(22); // Si añadiste el setter en la clase
+                    aire.aumentar(); // Aumenta velocidad ventilador
+                    aire.disminuir();
+                    System.out.println("   [Aire] Modo cambiado y ventilación ajustada.");
+                }
+
+            } catch (Exception e) {
+                // Captura de DispositivoApagadoExcepcion si se implementó en los métodos
+                System.out.println("   ERROR: " + e.getMessage());
+            }
+
+            // Mostrar estado final tras las pruebas
+            System.out.println("   Estado final: " + m.toString() + "\n");
+        }
+       }
+    }

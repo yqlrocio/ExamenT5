@@ -3,7 +3,7 @@ package aplicacion;
 	/**
 	 * Mando a distancia para controlar  el volumen y los canales de la televisión.
 	 */
-	public abstract class MandoTV extends Mando implements Ajustable {
+	public class MandoTV extends Mando implements Ajustable {
 
 	    protected String canal;
 	    protected int volumen;
@@ -13,6 +13,9 @@ package aplicacion;
 	        this.canal = canal;
 	    }
 	  
+	    public String setCanal(String canal) {
+	    	return this.canal = canal; 
+	    }
         public String getCanal() {
             return canal;
         }

@@ -3,7 +3,7 @@ package aplicacion;
 	/**
 	 * MandoAspiradora con control de velocidad.
 	 */
-	public abstract class MandoAspiradora extends Mando implements Velocidad{
+	public class MandoAspiradora extends Mando implements Velocidad{
 
 	    protected int velocidad = 0;
 	  

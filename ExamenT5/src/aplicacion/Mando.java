@@ -53,6 +53,10 @@ import aplicacion.Mando;
         return modelo.equals(m.modelo) &&
                obj.equals(m.obj);
     }
+	    @Override
+	    public int compareTo(Mando otroMando) {
+	    	return this.modelo.compareTo(otroMando.modelo);
+	    }
 
 	    /**
 	     * Devuelve una representación en forma de cadena del mando

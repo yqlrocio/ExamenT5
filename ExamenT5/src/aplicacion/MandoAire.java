@@ -3,7 +3,7 @@ package aplicacion;
 	/**
 	 * MandoAire con control de modo y velocidad.
 	 */
-	public abstract class MandoAire extends Mando implements Velocidad{
+	public class MandoAire extends Mando implements Velocidad{
 
 	    protected int velocidad = 0;
 	    protected String modo = "ESTADO"; 
